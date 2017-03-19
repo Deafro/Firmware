@@ -3472,7 +3472,7 @@ public:
 		return "ADC_REPORT";
 	}
 	
-	uint8_t get_id()
+	static uint8_t get_id_static()
 	{
 		return MAVLINK_MSG_ID_ADC_REPORT;
 	}
