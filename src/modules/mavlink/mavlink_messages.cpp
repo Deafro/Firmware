@@ -3493,7 +3493,7 @@ private:
 
 	/* do not allow top copying this class */
 	MavlinkStreamAdcreport(MavlinkStreamAdcreport &);
-	MavlinkStreamAdcreport &operator = (const MavlinkStreamAdcreport &);
+	MavlinkStreamAdcreport& operator = (const MavlinkStreamAdcreport &);
 
 protected:
 	explicit MavlinkStreamAdcreport(Mavlink *mavlink) : MavlinkStream(mavlink),
