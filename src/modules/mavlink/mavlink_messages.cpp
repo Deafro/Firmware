@@ -3484,7 +3484,7 @@ public:
 	
 	unsigned get_size()
 	{
-		return MAVLINK_MSG_ADC_REPORT_LEN + MAVLINK_NUM_NON_PAYLOAD_BYTES;
+		return MAVLINK_MSG_ID_ADC_REPORT_LEN + MAVLINK_NUM_NON_PAYLOAD_BYTES;
 	}
 
 private:
