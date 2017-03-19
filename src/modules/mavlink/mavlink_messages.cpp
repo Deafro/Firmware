@@ -89,6 +89,8 @@
 #include <uORB/topics/vision_position_estimate.h>
 #include <uORB/topics/vtol_vehicle_status.h>
 #include <uORB/topics/wind_estimate.h>
+#include <uORB/topics/adc_report.h>
+#include <v1.0/adc_report/mavlink_msg_adc_report.h>
 #include <uORB/uORB.h>
 
 
@@ -3457,6 +3459,63 @@ protected:
 	}
 };
 
+class MavlinkStreamAdcreport : public MavlinkStream
+{
+public:
+	const char *get_name() const
+	{
+		return MavlinkStreamAdcreport::get_name_static();
+	}
+	
+	static const char *get_name_static()
+	{
+		return "ADC_REPORT";
+	}
+	
+	uint8_t get_id()
+	{
+		return MAVLINK_MSG_ID_ADC_REPORT;
+	}
+	
+	static MavlinkStream *new_instance(Mavlink *mavlink)
+	{
+		return new MavlinkStreamAdcreport(mavlink);
+	}
+	
+	unsigned get_size()
+	{
+		return MAVLINK_MSG_ADC_REPORT_LEN + MAVLINK_NUM_NON_PAYLOAD_BYTES;
+	}
+
+private:
+	MavlinkOrbSubscription *_sub;
+	uint64_t _adc_report_time;
+
+	/* do not allow top copying this class */
+	MavlinkStreamAdcreport(MavlinkStreamAdcreport &);
+	MavlinkStreamAdcreport &operator = (const MavlinkStreamAdcreport &);
+
+protected:
+	explicit MavlinkStreamAdcreport(Mavlink *mavlink) : MavlinkStream(mavlink),
+		_sub(_mavlink->add_orb_subscription(ORB_ID(adc_report))),
+		_adc_report_time(0)
+	{}
+
+	void send(const hrt_abstime t)
+	{
+		struct adc_report_s adc;
+
+		if (_sub->update(&_adc_report_time,&_adc_report)) {
+			mavlink_adc_report_t _msg_adc_report;
+
+			_msg_probe.aoa = buf.adc.channel_value[6];
+			_msg_probe.ss = buf.adc.channel_value[7];
+
+			_mavlink->send_message(MAVLINK_MSG_ID_ADC_REPORT, &_msg_adc_report);
+		}
+	}
+};
+
 const StreamListItem *streams_list[] = {
 	new StreamListItem(&MavlinkStreamHeartbeat::new_instance, &MavlinkStreamHeartbeat::get_name_static, &MavlinkStreamHeartbeat::get_id_static),
 	new StreamListItem(&MavlinkStreamStatustext::new_instance, &MavlinkStreamStatustext::get_name_static, &MavlinkStreamStatustext::get_id_static),
@@ -3501,5 +3560,6 @@ const StreamListItem *streams_list[] = {
 	new StreamListItem(&MavlinkStreamAltitude::new_instance, &MavlinkStreamAltitude::get_name_static, &MavlinkStreamAltitude::get_id_static),
 	new StreamListItem(&MavlinkStreamADSBVehicle::new_instance, &MavlinkStreamADSBVehicle::get_name_static, &MavlinkStreamADSBVehicle::get_id_static),
 	new StreamListItem(&MavlinkStreamWind::new_instance, &MavlinkStreamWind::get_name_static, &MavlinkStreamWind::get_id_static),
+	new StreamListItem(&MavlinkStreamAdcreport::new_instance, &MavlinkStreamAdcreport::get_name_static),
 	nullptr
 };
