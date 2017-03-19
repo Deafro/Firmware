@@ -3508,8 +3508,8 @@ protected:
 		if (_sub->update(&_adc_report_time, &adc)) {
 			mavlink_adc_report_t _msg_adc_report;
 
-			_msg_probe.aoa = buf.adc.channel_value[6];
-			_msg_probe.ss = buf.adc.channel_value[7];
+			_msg_adc_report.aoa = buf.adc.channel_value[6];
+			_msg_adc_report.ss = buf.adc.channel_value[7];
 
 			_mavlink->send_message(MAVLINK_MSG_ID_ADC_REPORT, &_msg_adc_report);
 		}
