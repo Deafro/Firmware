@@ -3505,7 +3505,7 @@ protected:
 	{
 		struct adc_report_s adc;
 
-		if (_sub->update(&_adc_report_time,&_adc_report)) {
+		if (_sub->update(&_adc_report_time, &adc)) {
 			mavlink_adc_report_t _msg_adc_report;
 
 			_msg_probe.aoa = buf.adc.channel_value[6];
