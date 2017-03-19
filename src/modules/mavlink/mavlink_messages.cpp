@@ -3560,6 +3560,6 @@ const StreamListItem *streams_list[] = {
 	new StreamListItem(&MavlinkStreamAltitude::new_instance, &MavlinkStreamAltitude::get_name_static, &MavlinkStreamAltitude::get_id_static),
 	new StreamListItem(&MavlinkStreamADSBVehicle::new_instance, &MavlinkStreamADSBVehicle::get_name_static, &MavlinkStreamADSBVehicle::get_id_static),
 	new StreamListItem(&MavlinkStreamWind::new_instance, &MavlinkStreamWind::get_name_static, &MavlinkStreamWind::get_id_static),
-	new StreamListItem(&MavlinkStreamAdcreport::new_instance, &MavlinkStreamAdcreport::get_name_static),
+	new StreamListItem(&MavlinkStreamAdcreport::new_instance, &MavlinkStreamAdcreport::get_name_static,&MavlinkStreamAdcreport::get_id_static),
 	nullptr
 };
