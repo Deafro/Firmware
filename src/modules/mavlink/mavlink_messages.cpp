@@ -3511,7 +3511,7 @@ protected:
 			_msg_adc_report.AOA = adc.channel_value[6];
 			_msg_adc_report.SS = adc.channel_value[7];
 
-			_mavlink->send_message(MAVLINK_MSG_ID_ADC_REPORT, &_msg_adc_report);
+			mavlink_msg_adc_report_send_struct(_mavlink->get_channel(), &_msg_adc_report);
 		}
 	}
 };
