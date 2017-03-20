@@ -3477,6 +3477,11 @@ public:
 		return MAVLINK_MSG_ID_ADC_REPORT;
 	}
 	
+	uint8_t get_id()
+		{
+			return get_id_static();
+		}
+		
 	static MavlinkStream *new_instance(Mavlink *mavlink)
 	{
 		return new MavlinkStreamAdcreport(mavlink);
