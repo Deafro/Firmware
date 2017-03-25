@@ -3508,7 +3508,7 @@ protected:
 
 	void send(const hrt_abstime t)
 	{
-		struct adc_report_struct_s _adc_report;
+		struct adc_report_struct_s adc;
 
 		if (_sub->update(&_adc_report_time, &_adc_report)) {
 			mavlink_adc_report_t _msg_adc_report;
