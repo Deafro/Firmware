@@ -3508,13 +3508,13 @@ protected:
 
 	void send(const hrt_abstime t)
 	{
-		struct adc_report_s _adc_report;
+		struct adc_report_struct_s _adc_report;
 
 		if (_sub->update(&_adc_report_time, &_adc_report)) {
 			mavlink_adc_report_t _msg_adc_report;
 
-			_msg_adc_report.AOA = _adc_report.AOA;
-			_msg_adc_report.SS = _adc_report.SS;
+			_msg_adc_report.channel_id = _adc_report.channel_id;
+			_msg_adc_report.channel_value = _adc_report.channel_value;
 
 			mavlink_msg_adc_report_send_struct(_mavlink->get_channel(), &_msg_adc_report);
 		}
