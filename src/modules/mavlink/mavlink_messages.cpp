@@ -90,7 +90,7 @@
 #include <uORB/topics/vtol_vehicle_status.h>
 #include <uORB/topics/wind_estimate.h>
 #include <uORB/topics/adc_report.h>
-#include <v2.0/adc_report/mavlink_msg_adc_report.h>
+#include <v1.0/adc_report/mavlink_msg_adc_report.h>
 #include <uORB/uORB.h>
 
 
